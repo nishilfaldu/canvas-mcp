@@ -1,6 +1,14 @@
 {
-  "buildCommand": "pip install -r requirements.txt",
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/api/tools" }
+  "builds": [
+    {
+      "src": "api/tools.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "api/tools.py"
+    }
   ]
 }
