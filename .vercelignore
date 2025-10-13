@@ -1,0 +1,11 @@
+worker/
+archive/
+docs/
+tests/
+.git/
+*.pyc
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
