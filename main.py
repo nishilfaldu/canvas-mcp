@@ -31,6 +31,12 @@ from tools.assignments import (
     get_assignment,
     get_assignment_submission,
 )
+from tools.announcements import (
+    list_announcements,
+)
+from tools.enrollments import (
+    list_enrollments,
+)
 
 # Initialize FastAPI app
 app = FastAPI(

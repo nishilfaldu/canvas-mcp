@@ -286,3 +286,131 @@ def build_single_assignment_params(
         params["all_dates"] = str(all_dates).lower()
 
     return params
+
+
+def build_announcements_params(
+    context_codes: List[str],
+    start_date: Optional[str] = None,
+    end_date: Optional[str] = None,
+    active_only: Optional[bool] = None,
+    latest_only: Optional[bool] = None,
+    include: Optional[List[str]] = None,
+    per_page: Optional[int] = None,
+) -> Dict[str, Any]:
+    """
+    Build query parameters for announcements endpoint.
+
+    Args:
+        context_codes: List of course identifiers (e.g., ["course_123", "course_456"])
+        start_date: Only return announcements posted after this date (ISO 8601)
+        end_date: Only return announcements posted before this date (ISO 8601)
+        active_only: Only return active (published) announcements
+        latest_only: Only return the most recent announcement per context
+        include: Additional data to include (["sections", "sections_user_count"])
+        per_page: Number of results per page
+
+    Returns:
+        Dictionary of query parameters ready for Canvas API
+
+    Example:
+        >>> params = build_announcements_params(
+        ...     context_codes=["course_123", "course_456"],
+        ...     active_only=True,
+        ...     per_page=50
+        ... )
+    """
+    params: Dict[str, Any] = {}
+
+    # Context codes (required)
+    params["context_codes[]"] = context_codes
+
+    # Date filters
+    if start_date:
+        params["start_date"] = start_date
+
+    if end_date:
+        params["end_date"] = end_date
+
+    # Boolean filters
+    if active_only is not None:
+        params["active_only"] = str(active_only).lower()
+
+    if latest_only is not None:
+        params["latest_only"] = str(latest_only).lower()
+
+    # Include parameters
+    if include:
+        params["include[]"] = include
+
+    # Pagination
+    if per_page:
+        params["per_page"] = per_page
+
+    return params
+
+
+# Comprehensive list of available include[] parameters for enrollments
+ENROLLMENT_INCLUDE_ALL = [
+    "avatar_url",       # User avatar URL
+    "group_ids",        # Group membership IDs
+    "locked",           # Whether enrollment is locked
+    "observed_users",   # Observed users (for observers)
+    "can_be_removed",   # Whether enrollment can be removed
+    "uuid",             # Enrollment UUID
+    "current_points",   # Current points earned (includes unposted_current_points if permission)
+]
+
+
+def build_enrollments_params(
+    user_id: str = "self",
+    state: Optional[List[str]] = None,
+    enrollment_type: Optional[List[str]] = None,
+    include: Optional[List[str]] = None,
+    grading_period_id: Optional[int] = None,
+    per_page: Optional[int] = None,
+) -> Dict[str, Any]:
+    """
+    Build query parameters for user enrollments endpoint.
+
+    Args:
+        user_id: User ID to get enrollments for (default: "self")
+        state: Filter by enrollment state (["active"], ["completed"], etc.)
+        enrollment_type: Filter by type (["StudentEnrollment"], ["TeacherEnrollment"], etc.)
+        include: Additional data to include (use ENROLLMENT_INCLUDE_ALL for everything)
+        grading_period_id: Return grades for specific grading period
+        per_page: Number of results per page
+
+    Returns:
+        Dictionary of query parameters ready for Canvas API
+
+    Example:
+        >>> params = build_enrollments_params(
+        ...     state=["active"],
+        ...     enrollment_type=["StudentEnrollment"],
+        ...     include=["current_points"],
+        ...     per_page=100
+        ... )
+    """
+    params: Dict[str, Any] = {}
+
+    # State filter
+    if state:
+        params["state[]"] = state
+
+    # Enrollment type filter
+    if enrollment_type:
+        params["type[]"] = enrollment_type
+
+    # Include parameters
+    if include:
+        params["include[]"] = include
+
+    # Grading period filter
+    if grading_period_id:
+        params["grading_period_id"] = grading_period_id
+
+    # Pagination
+    if per_page:
+        params["per_page"] = per_page
+
+    return params
