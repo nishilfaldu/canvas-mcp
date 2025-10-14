@@ -414,3 +414,67 @@ def build_enrollments_params(
         params["per_page"] = per_page
 
     return params
+
+
+def build_quiz_params(
+    search_term: Optional[str] = None,
+    per_page: Optional[int] = None,
+) -> Dict[str, Any]:
+    """
+    Build query parameters for quizzes list endpoint.
+
+    Args:
+        search_term: Search quizzes by partial title match
+        per_page: Number of results per page
+
+    Returns:
+        Dictionary of query parameters ready for Canvas API
+
+    Example:
+        >>> params = build_quiz_params(
+        ...     search_term="midterm",
+        ...     per_page=50
+        ... )
+    """
+    params: Dict[str, Any] = {}
+
+    if search_term:
+        params["search_term"] = search_term
+
+    if per_page:
+        params["per_page"] = per_page
+
+    return params
+
+
+# Comprehensive list of available include[] parameters for quiz submissions
+QUIZ_SUBMISSION_INCLUDE_ALL = [
+    "submission",  # The submission associated with the quiz
+    "quiz",        # The quiz object
+    "user",        # The user who took the quiz
+]
+
+
+def build_quiz_submission_params(
+    include: Optional[List[str]] = None,
+) -> Dict[str, Any]:
+    """
+    Build query parameters for quiz submission endpoints.
+
+    Args:
+        include: Additional data to include (use QUIZ_SUBMISSION_INCLUDE_ALL for everything)
+
+    Returns:
+        Dictionary of query parameters ready for Canvas API
+
+    Example:
+        >>> params = build_quiz_submission_params(
+        ...     include=["submission", "quiz", "user"]
+        ... )
+    """
+    params: Dict[str, Any] = {}
+
+    if include:
+        params["include[]"] = include
+
+    return params

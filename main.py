@@ -37,6 +37,12 @@ from tools.announcements import (
 from tools.enrollments import (
     list_enrollments,
 )
+from tools.quizzes import (
+    list_quizzes,
+    get_quiz,
+    get_quiz_submission,
+    list_quiz_submissions,
+)
 
 # Initialize FastAPI app
 app = FastAPI(
