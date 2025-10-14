@@ -26,6 +26,11 @@ from tools.courses import (
     get_course_users,
     preview_html,
 )
+from tools.assignments import (
+    list_assignments,
+    get_assignment,
+    get_assignment_submission,
+)
 
 # Initialize FastAPI app
 app = FastAPI(
