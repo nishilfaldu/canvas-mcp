@@ -8,7 +8,7 @@ Returns full JSON responses with all available Canvas course fields.
 from typing import Any, Dict
 from tools.base import BaseTool, ToolContext
 from tools.registry import register_tool
-from utils import build_course_params, COURSE_INCLUDE_ALL
+from utils.canvas_params import build_course_params, COURSE_INCLUDE_ALL
 
 
 @register_tool

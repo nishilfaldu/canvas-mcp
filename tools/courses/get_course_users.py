@@ -8,7 +8,7 @@ Respects course privacy settings - only shows what the student can see.
 from typing import Any, Dict
 from tools.base import BaseTool, ToolContext
 from tools.registry import register_tool
-from utils import build_course_user_params
+from utils.canvas_params import build_course_user_params
 
 
 @register_tool

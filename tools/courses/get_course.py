@@ -8,7 +8,7 @@ Returns comprehensive course data with all available fields.
 from typing import Any, Dict
 from tools.base import BaseTool, ToolContext
 from tools.registry import register_tool
-from utils import build_single_course_params, COURSE_INCLUDE_ALL
+from utils.canvas_params import build_single_course_params, COURSE_INCLUDE_ALL
 
 
 @register_tool
