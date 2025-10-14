@@ -16,7 +16,8 @@ from api.exceptions import CanvasAPIError
 
 # Import tools (this triggers automatic registration)
 import tools
-from tools import registry, ToolContext
+from tools.base import ToolContext
+from tools.registry import registry
 
 # Initialize FastAPI app
 app = FastAPI(
