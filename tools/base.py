@@ -4,8 +4,8 @@ All tools should inherit from BaseTool and implement the execute() method.
 """
 
 from abc import ABC, abstractmethod
-from typing import Any, Dict
-from api import CanvasAPIClient
+from typing import Any, Dict, Optional
+from api.client import CanvasAPIClient
 
 
 class ToolContext:
@@ -143,7 +143,3 @@ class BaseTool(ABC):
 
     def __repr__(self) -> str:
         return f"<{self.__class__.__name__} name='{self.name}' category='{self.category}'>"
-
-
-# Type alias for tool registration
-from typing import Optional
