@@ -15,9 +15,17 @@ from api.models import ToolRequest, ToolResponse
 from api.exceptions import CanvasAPIError
 
 # Import tools (this triggers automatic registration)
-import tools
 from tools.base import ToolContext
 from tools.registry import registry
+
+# Explicitly import tool modules to trigger @register_tool decorators
+from tools.courses import (
+    list_courses,
+    get_course,
+    get_course_progress,
+    get_course_users,
+    preview_html,
+)
 
 # Initialize FastAPI app
 app = FastAPI(
