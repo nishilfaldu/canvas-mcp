@@ -39,7 +39,11 @@ class CanvasAPIClient:
         """
         self.api_url = api_url.rstrip("/")
         self.api_token = api_token
-        self.base_url = f"{self.api_url}/api/v1"
+        # Ensure base_url includes /api/v1
+        if self.api_url.endswith("/api/v1"):
+            self.base_url = self.api_url
+        else:
+            self.base_url = f"{self.api_url}/api/v1"
 
     def _get_headers(self) -> Dict[str, str]:
         """Get HTTP headers for Canvas API requests."""
@@ -64,7 +68,9 @@ class CanvasAPIClient:
         if not endpoint.startswith("/"):
             endpoint = f"/{endpoint}"
 
-        url = urljoin(self.base_url, endpoint)
+        # Don't use urljoin as it replaces the base path when endpoint starts with /
+        # Instead, concatenate directly
+        url = f"{self.base_url}{endpoint}"
 
         if params:
             # Convert lists to multiple params (Canvas API format)
