@@ -98,8 +98,11 @@ async def make_canvas_request(
         if not endpoint.startswith('/'):
             endpoint = f"/{endpoint}"
 
-        # Construct the full URL
-        url = f"{config.api_base_url.rstrip('/')}{endpoint}"
+        # Construct the full URL - ensure base URL includes /api/v1
+        base_url = config.api_base_url.rstrip('/')
+        if not base_url.endswith('/api/v1'):
+            base_url = f"{base_url}/api/v1"
+        url = f"{base_url}{endpoint}"
 
         # Log the request for debugging (if enabled)
         if config.log_api_requests:
