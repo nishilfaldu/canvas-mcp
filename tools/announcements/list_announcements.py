@@ -5,7 +5,7 @@ Lists announcements across multiple courses for the student.
 Returns full announcement data including title, message, and dates.
 """
 
-from typing import Any, Dict, List
+from typing import Any, Dict
 from tools.base import BaseTool, ToolContext
 from tools.registry import register_tool
 from utils.canvas_params import build_announcements_params
