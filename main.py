@@ -123,6 +123,12 @@ async def list_tools():
     }
 
 
+@app.get("/tools/count")
+async def tool_count():
+    """Return only the number of registered MCP tools."""
+    return {"tool_count": len(registry.list_all())}
+
+
 @app.post("/tools/call", response_model=ToolResponse)
 async def call_tool(request: ToolRequest):
     """
